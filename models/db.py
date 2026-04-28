@@ -1,14 +1,12 @@
 from bson.objectid import ObjectId
 from pymongo import MongoClient
+import os
 
-_mongo_client = MongoClient("mongodb://localhost:27017/")
+MONGO_URI = os.getenv("MONGO_URI")
 
+_mongo_client = MongoClient(MONGO_URI)
 
-def get_mongo_db():
-    return _mongo_client["control_academico"]
-
-
-mongo_db = get_mongo_db()
+mongo_db = _mongo_client["control_academico"]
 
 alumnos_col = mongo_db["alumnos"]
 docentes_col = mongo_db["docentes"]
