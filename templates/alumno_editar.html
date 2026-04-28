@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h5 class="card-title">Editar Alumno</h5>
+        <form method="post" class="row g-3">
+            <div class="col-md-4">
+                <label class="form-label">Matricula</label>
+                <input type="text" name="matricula" class="form-control" required maxlength="30" value="{{ alumno.matricula }}">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Nombre</label>
+                <input type="text" name="nombre" class="form-control" required maxlength="100" value="{{ alumno.nombre }}">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Carrera</label>
+                <input type="text" name="carrera" class="form-control" required maxlength="100" value="{{ alumno.carrera }}">
+            </div>
+            <div class="col-12 d-flex gap-2">
+                <button class="btn btn-success" type="submit">Guardar</button>
+                <a class="btn btn-secondary" href="{{ url_for('alumnos.alumnos') }}">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

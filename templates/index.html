@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-center align-items-center home-wrapper">
+    <div class="text-center">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo institucional" class="logo-home mb-4">
+        <h2 class="fw-semibold text-primary">Bienvenido al Sistema de Control Académico</h2>
+    </div>
+</div>
+{% endblock %}

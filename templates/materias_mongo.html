@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Materias</h4>
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNuevaMateria">+ Nueva Materia</button>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Clave</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for materia in materias %}
+                        <tr>
+                            <td>{{ materia.nombre }}</td>
+                            <td>{{ materia.clave }}</td>
+                            <td class="d-flex gap-2">
+                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarMateria{{ materia.id }}">
+                                    Editar
+                                </button>
+                                <form method="post" action="{{ url_for('materias.eliminar_materia', materia_id=materia.id) }}" onsubmit="return confirm('Desea eliminar esta materia?');">
+                                    <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="3" class="text-center">Sin registros</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalNuevaMateria" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form method="post" action="{{ url_for('materias.materias') }}">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nueva Materia</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" name="nombre" class="form-control" required maxlength="120" pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ ]+" value="{{ draft.nombre if open_modal == 'modalNuevaMateria' else '' }}">
+                    </div>
+                    <div>
+                        <label class="form-label">Clave</label>
+                        <input type="text" name="clave" class="form-control" required maxlength="50" pattern="[A-Za-z0-9-]+" value="{{ draft.clave if open_modal == 'modalNuevaMateria' else '' }}">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" type="submit">Guardar</button>
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% for materia in materias %}
+<div class="modal fade" id="modalEditarMateria{{ materia.id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form method="post" action="{{ url_for('materias.editar_materia', materia_id=materia.id) }}">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Materia</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" name="nombre" class="form-control" required maxlength="120" pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ ]+" value="{{ draft.nombre if open_modal == ('modalEditarMateria' ~ materia.id) else materia.nombre }}">
+                    </div>
+                    <div>
+                        <label class="form-label">Clave</label>
+                        <input type="text" name="clave" class="form-control" required maxlength="50" pattern="[A-Za-z0-9-]+" value="{{ draft.clave if open_modal == ('modalEditarMateria' ~ materia.id) else materia.clave }}">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" type="submit">Guardar</button>
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% if open_modal %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var modalElement = document.getElementById("{{ open_modal }}");
+        if (modalElement) {
+            var modal = new bootstrap.Modal(modalElement);
+            modal.show();
+        }
+    });
+</script>
+{% endif %}
+{% endblock %}

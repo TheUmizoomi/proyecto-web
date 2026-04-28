@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <h5 class="card-title">Reporte por Alumno</h5>
+        <form method="get" class="row g-3">
+            <div class="col-md-8">
+                <label class="form-label">Alumno</label>
+                <select name="alumno_id" class="form-select" required>
+                    <option value="">Seleccione</option>
+                    {% for alumno in alumnos %}
+                        <option value="{{ alumno.id }}" {% if selected_alumno == alumno.id %}selected{% endif %}>
+                            {{ alumno.matricula }} - {{ alumno.nombre }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4 d-flex align-items-end">
+                <button class="btn btn-success" type="submit">Consultar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if reporte_alumno %}
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <h5 class="card-title">Resultado individual</h5>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Alumno</th>
+                        <th>Matricula</th>
+                        <th>Carrera</th>
+                        <th>Materia</th>
+                        <th>Calificacion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in reporte_alumno %}
+                        <tr>
+                            <td>{{ item.alumno }}</td>
+                            <td>{{ item.matricula }}</td>
+                            <td>{{ item.carrera }}</td>
+                            <td>{{ item.materia or "-" }}</td>
+                            <td>{{ item.calificacion if item.calificacion is not none else "-" }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h5 class="card-title">Reporte general</h5>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Alumno</th>
+                        <th>Matricula</th>
+                        <th>Carrera</th>
+                        <th>Materia</th>
+                        <th>Calificacion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in reporte_general %}
+                        <tr>
+                            <td>{{ item.alumno }}</td>
+                            <td>{{ item.matricula }}</td>
+                            <td>{{ item.carrera }}</td>
+                            <td>{{ item.materia or "-" }}</td>
+                            <td>{{ item.calificacion if item.calificacion is not none else "-" }}</td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="5" class="text-center">Sin datos</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
