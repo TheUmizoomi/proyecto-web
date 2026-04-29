@@ -1,29 +1,106 @@
-# Sistema Web de Control Académico
+# Sistema de Control Académico
 
-Proyecto con Flask y datos temporales en memoria (sin base de datos), interfaz tipo dashboard y CRUD de alumnos, docentes y materias.
+Sistema web desarrollado con Flask y MongoDB para la gestión de alumnos, docentes, materias y calificaciones.
+
+## Descripción
+
+El sistema permite administrar información académica mediante una interfaz web organizada por módulos. Incluye operaciones CRUD completas, validaciones de datos y visualización de información en tiempo real.
+
+## Tecnologías utilizadas
+
+- Python
+- Flask
+- MongoDB
+- PyMongo
+- HTML, CSS, JavaScript
+- Jinja2
+
+## Estructura del proyecto
+/app.py
+/models
+/routes
+/templates
+/static
+
+
+## Funcionalidades
+
+### Módulo de Alumnos
+- Registro
+- Edición
+- Eliminación
+- Consulta
+
+### Módulo de Docentes
+- Registro
+- Edición
+- Eliminación
+
+### Módulo de Materias
+- Registro
+- Edición
+- Eliminación
+- Asignación de docente
+
+### Módulo de Calificaciones
+- Registro de calificaciones
+- Edición
+- Consulta por alumno
+- Asignación automática de periodo
 
 ## Requisitos
 
-- Python 3
-- Entorno virtual `.venv` (incluido en el proyecto)
+- Python 3.10 o superior
+- MongoDB Community Server
+- Navegador web actualizado
 
-## Ejecutar
+## Instalación
 
-1. Activar entorno virtual (PowerShell):
-   - `.\.venv\Scripts\Activate.ps1`
-2. Instalar dependencias (si hace falta):
-   - `pip install -r requirements.txt`
-3. Iniciar servidor:
-   - `python app.py`
-4. Abrir:
-   - [http://127.0.0.1:5000](http://127.0.0.1:5000)
+Clonar el repositorio:
+git clone []
+cd nombre-del-proyecto
 
-## Datos temporales
+Crear entorno virtual:
+python -m venv venv
 
-Los datos viven en memoria dentro de `app.py`:
+Activar entorno virtual:
+Windows:
+venv\Scripts\activate
 
-- `alumnos_data`
-- `docentes_data`
-- `materias_data`
+Linux/macOS:
+source venv/bin/activate
 
-Al reiniciar la aplicación, se reinician los registros.
+Instalar dependencias:
+pip install flask pymongo
+
+## Configuración de la base de datos
+
+Asegurarse de que MongoDB esté en ejecución.
+
+La base de datos utilizada es:
+
+
+control_academico
+
+
+Las colecciones se generan automáticamente:
+- alumnos
+- docentes
+- materias
+- calificaciones
+
+## Ejecución
+
+
+python app.py
+
+
+Acceder en el navegador:
+http://127.0.0.1:5000
+
+## Autor
+
+Proyecto desarrollado como parte de la materia de programación web.
+
+- Carlos Rafael Martínez Hernández
+- Montserrat Jacqueline Betanzos Hernández
